@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASF Treino — Treinos de surf e progressão para mulheres | ASF</title>
+<meta name="description" content="Planos de treino de surf para mulheres: remada, pop-up, equilíbrio e condicionamento. Checklist interativo com progresso salvo no seu navegador.">
+<link rel="canonical" href="https://acarolmourad-commits.github.io/asf-treino/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ASF Treino — Planos de treino de surf">
+<meta property="og:description" content="Treinos semanais para evoluir no surf, dentro e fora da água.">
+<meta property="og:url" content="https://acarolmourad-commits.github.io/asf-treino/">
+<meta name="theme-color" content="#00A8CC">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"ASF Treino","url":"https://acarolmourad-commits.github.io/asf-treino/","applicationCategory":"HealthApplication","operatingSystem":"Web","inLanguage":"pt-BR","isPartOf":{"@type":"WebSite","name":"ASF — Associação Surf Feminino","url":"https://acarolmourad-commits.github.io/asf-app/"}}
+</script>
+<style>
+:root{--primary:#00A8CC;--dark:#0E2439;--purple:#9B59B6;--bg:#F7FBFC;--gray:#5A6B7A}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Outfit',system-ui,sans-serif;background:var(--bg);color:var(--dark)}
+nav{position:sticky;top:0;background:#fff;border-bottom:1px solid #E5EEF2;padding:10px 16px;display:flex;gap:14px;flex-wrap:wrap;z-index:10;justify-content:center}
+nav a{color:var(--primary);text-decoration:none;font-weight:700;font-size:13px}
+nav a.on{color:var(--purple)}
+header{background:linear-gradient(135deg,var(--primary),var(--purple));color:#fff;padding:44px 20px 32px;text-align:center}
+header h1{font-size:clamp(22px,5vw,32px);margin:6px 0}
+header .tag{font-size:11px;letter-spacing:2px;text-transform:uppercase;opacity:.9}
+header p{opacity:.95;font-size:14px}
+.wrap{max-width:720px;margin:0 auto;padding:24px 16px 60px}
+.progresso{background:#E5EEF2;border-radius:999px;height:12px;overflow:hidden;margin:10px 0 20px}
+.progresso div{background:linear-gradient(90deg,var(--primary),var(--purple));height:100%;transition:width .3s}
+.card{background:#fff;border-radius:14px;padding:16px 18px;margin:12px 0;box-shadow:0 2px 10px rgba(14,36,57,.06)}
+.card h2{font-size:16px;margin-bottom:8px}
+label{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;padding:5px 0;cursor:pointer}
+input[type=checkbox]{margin-top:3px;accent-color:var(--primary)}
+.muted{color:var(--gray);font-size:12.5px}
+button.reset{margin-top:14px;border:2px solid var(--primary);background:#fff;color:var(--primary);font-weight:700;padding:9px 18px;border-radius:999px;cursor:pointer;font-family:inherit}
+footer{text-align:center;font-size:12.5px;color:var(--gray);padding:24px;border-top:1px solid #E5EEF2}
+</style>
+</head>
+<body>
+<nav>
+<a href="https://acarolmourad-commits.github.io/asf-app/">🏄 ASF App</a>
+<a href="https://acarolmourad-commits.github.io/asf-previsao/">🌊 Previsão</a>
+<a href="https://acarolmourad-commits.github.io/asf-praias/">🏖️ Praias</a>
+<a class="on" href="https://acarolmourad-commits.github.io/asf-treino/">💪 Treino</a>
+<a href="https://acarolmourad-commits.github.io/asf-app/aprender/">📚 Guias</a>
+</nav>
+<header>
+<div class="tag">ASF · Treino</div>
+<h1>Semana de treino da surfista</h1>
+<p>Checklist interativo — seu progresso fica salvo neste navegador.</p>
+</header>
+<main class="wrap">
+<div class="muted"><span id="pct">0</span>% da semana concluída</div>
+<div class="progresso"><div id="bar" style="width:0%"></div></div>
+<div id="planos"></div>
+<button class="reset" onclick="resetar()">↺ Recomeçar semana</button>
+<p class="muted" style="margin-top:16px">Aprofunde a técnica no guia <a href="https://acarolmourad-commits.github.io/asf-app/aprender/remada-tecnica-e-treinos.html" style="color:var(--primary)">Remada no surf: técnica correta e treinos</a>.</p>
+</main>
+<footer>🌊 ASF — Associação Surf Feminino · <a href="https://acarolmourad-commits.github.io/asf-app/" style="color:var(--primary)">App principal</a></footer>
+<script>
+const plano=[
+{dia:'Segunda · Força (casa)',itens:['3×15 remada com elástico','3×10 agachamento','3×30s prancha isométrica','Alongamento de ombros 5 min']},
+{dia:'Terça · Água',itens:['Sessão de surf ou 20 min natação','10 min de remada contínua','5 sprints de 5 braçadas']},
+{dia:'Quarta · Mobilidade',itens:['10 min yoga focada em quadril','3×10 superman','Respiração: 3 séries de apneia confortável (sentada)']},
+{dia:'Quinta · Força (casa)',itens:['3×12 pop-ups no chão','3×12 afundo','3×30s prancha lateral (cada lado)']},
+{dia:'Sexta · Água',itens:['Sessão de surf com 1 objetivo técnico','Registrar sessão no app ASF']},
+{dia:'Sábado · Surf longo',itens:['Sessão com as manas da comunidade','Leitura de mar: 10 min observando antes de entrar']},
+{dia:'Domingo · Descanso ativo',itens:['Caminhada ou alongamento leve','Planejar a semana seguinte']}];
+const KEY='asf-treino-v1';let estado=JSON.parse(localStorage.getItem(KEY)||'{}');
+const box=document.getElementById('planos');
+plano.forEach((d,i)=>{let h=`<div class="card"><h2>${d.dia}</h2>`;d.itens.forEach((t,j)=>{const id=i+'-'+j;h+=`<label><input type="checkbox" data-id="${id}" ${estado[id]?'checked':''}> ${t}</label>`;});box.insertAdjacentHTML('beforeend',h+'</div>');});
+function atualizar(){const all=document.querySelectorAll('input[type=checkbox]');let ok=0;all.forEach(c=>{estado[c.dataset.id]=c.checked;if(c.checked)ok++;});localStorage.setItem(KEY,JSON.stringify(estado));const p=Math.round(ok/all.length*100);document.getElementById('bar').style.width=p+'%';document.getElementById('pct').textContent=p;}
+function resetar(){estado={};localStorage.removeItem(KEY);document.querySelectorAll('input[type=checkbox]').forEach(c=>c.checked=false);atualizar();}
+document.querySelectorAll('input[type=checkbox]').forEach(c=>c.onchange=atualizar);atualizar();
+</script>
+</body>
+</html>
