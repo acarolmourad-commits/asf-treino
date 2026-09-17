@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ASF Treino — Treinos de surf e progressão para mulheres | ASF</title>
-<meta name="description" content="Planos de treino de surf para mulheres: remada, pop-up, equilíbrio e condicionamento. Checklist interativo com progresso salvo no seu navegador.">
+<meta name="description" content="Planos de treino de surf para mulheres: remada, pop-up, equilíbrio, mobilidade e condicionamento. Checklist interativo com progresso salvo no seu navegador.">
 <link rel="canonical" href="https://acarolmourad-commits.github.io/asf-treino/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="ASF Treino — Planos de treino de surf">
@@ -31,11 +31,16 @@ header p{opacity:.95;font-size:14px}
 .progresso div{background:linear-gradient(90deg,var(--primary),var(--purple));height:100%;transition:width .3s}
 .card{background:#fff;border-radius:14px;padding:16px 18px;margin:12px 0;box-shadow:0 2px 10px rgba(14,36,57,.06)}
 .card h2{font-size:16px;margin-bottom:8px}
+.card p{font-size:14px;margin-bottom:6px}
 label{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;padding:5px 0;cursor:pointer}
 input[type=checkbox]{margin-top:3px;accent-color:var(--primary)}
 .muted{color:var(--gray);font-size:12.5px}
 button.reset{margin-top:14px;border:2px solid var(--primary);background:#fff;color:var(--primary);font-weight:700;padding:9px 18px;border-radius:999px;cursor:pointer;font-family:inherit}
 footer{text-align:center;font-size:12.5px;color:var(--gray);padding:24px;border-top:1px solid #E5EEF2}
+.destaque{border-left:4px solid var(--purple);background:linear-gradient(90deg,#faf5ff,#fff)}
+.destaque ul{margin:.4rem 0 .4rem 1.2rem;font-size:14px}
+.destaque li{margin:.3rem 0}
+.badge{display:inline-block;background:var(--purple);color:#fff;font-size:11px;font-weight:700;padding:2px 10px;border-radius:999px;margin-bottom:8px}
 </style>
 </head>
 <body>
@@ -63,18 +68,51 @@ footer{text-align:center;font-size:12.5px;color:var(--gray);padding:24px;border-
 <p>Checklist interativo — seu progresso fica salvo neste navegador.</p>
 </header>
 <main class="wrap">
+<div class="card destaque"><span class="badge">🔄 NOVO TODA SEMANA</span><h2 id="ts-titulo">Treino da Semana</h2><p class="muted" id="ts-foco"></p><ul id="ts-itens"></ul><p class="muted" style="margin-top:8px">Um treino inédito automaticamente a cada semana do ano. Complete e registre no <a href="https://acarolmourad-commits.github.io/asf-diario/" style="color:var(--primary)">ASF Diário</a>!</p></div>
 <div class="muted"><span id="pct">0</span>% da semana concluída</div>
 <div class="progresso"><div id="bar" style="width:0%"></div></div>
 <div id="planos"></div>
 <button class="reset" onclick="resetar()">↺ Recomeçar semana</button>
+<div class="card"><h2>🤸‍♀️ Mobilidade para o surf (15 min)</h2><p>Mobilidade é o que transforma força em movimento fluido na prancha. Faça 2–3x por semana ou antes das sessões:</p>
+<p><b>1. Trote + rotação de braços</b> — 2 min de aquecimento geral.</p>
+<p><b>2. Rotação torácica deitada</b> — de lado, joelhos dobrados, abra o braço de cima atrás do corpo: 8x cada lado. Essencial para os giros (bottom turn, cutback).</p>
+<p><b>3. 90/90 de quadril</b> — sentada com as duas pernas em 90°, gire de um lado para o outro: 10x. Quadril livre = pop-up rápido e base baixa.</p>
+<p><b>4. Cossaco (cossack squat)</b> — agachamento lateral alternado: 8x cada lado. Mobilidade de quadril + tornozelo.</p>
+<p><b>5. Gato-vaca (cat-cow)</b> — 10 ciclos lentos. Coluna flexível absorve melhor os impactos das ondas.</p>
+<p><b>6. Ombros com toalha</b> — segure uma toalha esticada e passe por cima da cabeça até atrás: 10x. Remada sem dor de ombro.</p>
+<p><b>7. Mobilidade de tornozelo</b> — joelho à parede sem tirar o calcanhar do chão: 10x cada. Base firme na prancha.</p>
+<p><b>8. Pombo (pigeon pose)</b> — 1 min cada lado. Solta o glúteo e o quadril depois de horas remando. Mais posturas no <a href="https://acarolmourad-commits.github.io/asf-yoga/" style="color:var(--primary)">ASF Yoga</a>.</p></div>
+<div class="card"><h2>💡 Como evoluir mais rápido</h2>
+<p><b>Consistência > intensidade:</b> 3 treinos curtos por semana valem mais que 1 treino gigante.</p>
+<p><b>Treine o pop-up no chão:</b> 10 repetições antes do café da manhã criam memória muscular para o takeoff.</p>
+<p><b>Filme-se:</b> grave seus treinos e sessões — comparar semanas é o melhor motivador. Poste na <a href="https://acarolmourad-commits.github.io/asf-comunidade/" style="color:var(--primary)">Comunidade ASF</a>.</p>
+<p><b>Respiração faz parte do treino:</b> combine com o <a href="https://acarolmourad-commits.github.io/asf-respira/" style="color:var(--primary)">ASF Respira</a> para ganhar calma e apneia.</p>
+<p><b>Descanso é treino:</b> durma 7–9h e capriche na alimentação — veja o <a href="https://acarolmourad-commits.github.io/asf-nutricao/" style="color:var(--primary)">ASF Nutrição</a>.</p></div>
 <p class="muted" style="margin-top:16px">Aprofunde a técnica no guia <a href="https://acarolmourad-commits.github.io/asf-app/aprender/remada-tecnica-e-treinos.html" style="color:var(--primary)">Remada no surf: técnica correta e treinos</a>.</p>
 </main>
 <footer>🌊 ASF — Associação Surf Feminino · <a href="https://acarolmourad-commits.github.io/asf-app/" style="color:var(--primary)">App principal</a></footer>
 <script>
+const TREINOS=[
+{t:'⚡ Explosão de pop-up',f:'Foco: velocidade no takeoff',i:['Aquecimento: 3 min polichinelo','5×5 pop-ups no chão (máx. velocidade)','4×8 agachamento com salto','3×20s prancha com toque no ombro','3×10 burpee de surfista (sem flexão)','Alongamento de quadril 5 min']},
+{t:'💪 Força total em casa',f:'Foco: corpo inteiro, sem equipamento',i:['4×12 agachamento','4×10 flexão (ou apoiada no joelho)','4×10 afundo alternado','3×12 remada com garrafa/mochila','3×45s prancha isométrica','Alongamento completo 8 min']},
+{t:'🌊 Remada de aço',f:'Foco: resistência de ombros e costas',i:['3×15 remada com elástico','4×12 superman com pausa','3×10 rotação externa com elástico','20 min natação ou simulação de remada deitada no banco','3×30s dead hang (barra fixa ou porta)']},
+{t:'🧘 Mobilidade profunda',f:'Foco: quadril, coluna e ombros',i:['10 min da rotina de mobilidade desta página','90/90 de quadril: 3×10','Pigeon pose: 2 min cada lado','Rotação torácica: 3×8 cada lado','Respiração 4-7-8: 5 ciclos (ASF Respira)']},
+{t:'🏃‍♀️ Cardio de surfista',f:'Foco: fôlego para séries longas',i:['5 min aquecimento trotando','Intervalado: 8× (30s forte + 90s leve)','3×10 agachamento no final','Caminhada 10 min para desacelerar','Hidratação: meta do ASF Nutrição']},
+{t:'⚖️ Equilíbrio e core',f:'Foco: estabilidade na prancha',i:['3×30s apoio unipodal (cada pé, olhos fechados no nível 2)','4×10 prancha lateral com elevação de quadril','3×12 bird-dog','3×10 ponte de glúteo unilateral','Prancha de equilíbrio ou almofada: 3×45s']},
+{t:'🤿 Apneia + calma',f:'Foco: preparação para wipeouts',i:['10 min respiração diafragmática','Tabela CO₂ do ASF Respira (em seco!)','3×5 pop-ups + agachamento após prender ar 15s (simula estresse)','5 min meditação sentada','Registrar tempo de apneia no ASF Diário']},
+{t:'🔥 HIIT da surfista',f:'Foco: potência e queima em 20 min',i:['Aquecimento 3 min','4 rodadas: 40s trabalho / 20s descanso','→ Pop-ups, mountain climbers, agachamento salto, prancha com toque','3 min de respiração lenta para finalizar']},
+{t:'🦵 Pernas de ferro',f:'Foco: base forte para manobras',i:['4×15 agachamento sumô','4×12 afundo reverso','3×12 cossaco (cossack squat)','4×15 panturrilha em pé','3×20s isometria de agachamento na parede','Alongamento de quadríceps e posterior 5 min']},
+{t:'🏄‍♀️ Simulação de sessão',f:'Foco: ritmo de surf sem mar',i:['5 min respiração + visualização de ondas','6 rodadas: 1 min remada no chão + pop-up + 20s em pé simulando drop','1 min descanso entre rodadas','Final: 10 pop-ups máxima velocidade','Alongamento de ombros 5 min']},
+{t:'🧗‍♀️ Core anti-rotação',f:'Foco: tronco forte para segurar a prancha',i:['3×10 pallof press com elástico (cada lado)','3×8 side plank com rotação','4×12 dead bug','3×30s hollow hold','Alongamento de lombar 4 min']},
+{t:'🌅 Recuperação ativa',f:'Foco: semana de deload / regeneração',i:['20 min caminhada leve','Rotina completa de mobilidade (15 min)','Foam roller ou bola em costas e glúteo: 8 min','10 min respiração 4-7-8','Planejar a próxima semana no ASF Diário']}
+];
+(function(){const now=new Date();const start=new Date(now.getFullYear(),0,1);const week=Math.floor((now-start)/6048e5);const t=TREINOS[week%TREINOS.length];document.getElementById('ts-titulo').textContent='Treino da Semana · '+t.t;document.getElementById('ts-foco').textContent=t.f;document.getElementById('ts-itens').innerHTML=t.i.map(x=>'<li>'+x+'</li>').join('');})();
+</script>
+<script>
 const plano=[
 {dia:'Segunda · Força (casa)',itens:['3×15 remada com elástico','3×10 agachamento','3×30s prancha isométrica','Alongamento de ombros 5 min']},
 {dia:'Terça · Água',itens:['Sessão de surf ou 20 min natação','10 min de remada contínua','5 sprints de 5 braçadas']},
-{dia:'Quarta · Mobilidade',itens:['10 min yoga focada em quadril','3×10 superman','Respiração: 3 séries de apneia confortável (sentada)']},
+{dia:'Quarta · Mobilidade',itens:['Rotina de mobilidade desta página (15 min)','3×10 superman','Respiração: 3 séries de apneia confortável (sentada)']},
 {dia:'Quinta · Força (casa)',itens:['3×12 pop-ups no chão','3×12 afundo','3×30s prancha lateral (cada lado)']},
 {dia:'Sexta · Água',itens:['Sessão de surf com 1 objetivo técnico','Registrar sessão no app ASF']},
 {dia:'Sábado · Surf longo',itens:['Sessão com as manas da comunidade','Leitura de mar: 10 min observando antes de entrar']},
