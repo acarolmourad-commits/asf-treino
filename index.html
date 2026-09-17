@@ -43,28 +43,24 @@ footer{text-align:center;font-size:12.5px;color:var(--gray);padding:24px;border-
 <a href="https://acarolmourad-commits.github.io/asf-app/">🏄 ASF App</a>
 <a href="https://acarolmourad-commits.github.io/asf-previsao/">🌊 Previsão</a>
 <a href="https://acarolmourad-commits.github.io/asf-praias/">🏖️ Praias</a>
-<a href="https://acarolmourad-commits.github.io/asf-mapa/">🗺️ Mapa</a>
-<a href="https://acarolmourad-commits.github.io/asf-mare/">🌙 Maré</a>
-<a href="https://acarolmourad-commits.github.io/asf-goldenhour/">📸 Golden Hour</a>
 <a class="on" href="https://acarolmourad-commits.github.io/asf-treino/">💪 Treino</a>
-<a href="https://acarolmourad-commits.github.io/asf-diario/">📝 Diário</a>
-<a href="https://acarolmourad-commits.github.io/asf-yoga/">🧘‍♀️ Yoga</a>
-<a href="https://acarolmourad-commits.github.io/asf-nutricao/">🥗 Nutrição</a>
-<a href="https://acarolmourad-commits.github.io/asf-ranking/">🏆 Ranking</a>
 <a href="https://acarolmourad-commits.github.io/asf-eventos/">📅 Eventos</a>
 <a href="https://acarolmourad-commits.github.io/asf-glossario/">📖 Glossário</a>
 <a href="https://acarolmourad-commits.github.io/asf-comunidade/">🤝 Comunidade</a>
 <a href="https://acarolmourad-commits.github.io/asf-seguranca/">🛟 Segurança</a>
-<a href="https://acarolmourad-commits.github.io/asf-sos/">🆘 SOS</a>
+<a href="https://acarolmourad-commits.github.io/asf-bemestar/">🧘 Bem-estar</a>
+<a href="https://acarolmourad-commits.github.io/asf-app/aprender/">📚 Guias</a>
+<a href="https://acarolmourad-commits.github.io/asf-diario/">📝 Diário</a>
+<a href="https://acarolmourad-commits.github.io/asf-yoga/">🧘‍♀️ Yoga</a>
 <a href="https://acarolmourad-commits.github.io/asf-equipamento/">🏄 Equipamento</a>
 <a href="https://acarolmourad-commits.github.io/asf-quiz/">❓ Quiz</a>
+<a href="https://acarolmourad-commits.github.io/asf-sos/">🆘 SOS</a>
 <a href="https://acarolmourad-commits.github.io/asf-eco/">🌱 Eco</a>
-<a href="https://acarolmourad-commits.github.io/asf-app/aprender/">📚 Guias</a>
 </nav>
 <header>
 <div class="tag">ASF · Treino</div>
 <h1>Semana de treino da surfista</h1>
-<p>Checklist interativo — seu progresso fica salvo neste navegador e conta pontos no <a href="https://acarolmourad-commits.github.io/asf-ranking/" style="color:#ffd">Ranking ASF</a>.</p>
+<p>Checklist interativo — seu progresso fica salvo neste navegador.</p>
 </header>
 <main class="wrap">
 <div class="muted"><span id="pct">0</span>% da semana concluída</div>
@@ -89,6 +85,32 @@ plano.forEach((d,i)=>{let h=`<div class="card"><h2>${d.dia}</h2>`;d.itens.forEac
 function atualizar(){const all=document.querySelectorAll('input[type=checkbox]');let ok=0;all.forEach(c=>{estado[c.dataset.id]=c.checked;if(c.checked)ok++;});localStorage.setItem(KEY,JSON.stringify(estado));const p=Math.round(ok/all.length*100);document.getElementById('bar').style.width=p+'%';document.getElementById('pct').textContent=p;}
 function resetar(){estado={};localStorage.removeItem(KEY);document.querySelectorAll('input[type=checkbox]').forEach(c=>c.checked=false);atualizar();}
 document.querySelectorAll('input[type=checkbox]').forEach(c=>c.onchange=atualizar);atualizar();
+</script>
+
+<!-- ASF Ecossistema Nav v2 (rede completa, 21 sites) -->
+<script>
+(function(){
+  function injectNav(){
+    if(document.querySelector('.asf-sat-nav'))return;
+    var old=document.querySelector('.asf-rede-nav');if(old)old.remove();
+    var sites=[["asf-app","\u{1F30A} App"],["asf-praias","\u{1F3D6}\uFE0F Praias"],["asf-previsao","\u{1F4C8} Previs\u00E3o"],["asf-treino","\u{1F3CB}\uFE0F Treino"],["asf-eventos","\u{1F4C5} Eventos"],["asf-glossario","\u{1F4D6} Gloss\u00E1rio"],["asf-comunidade","\u{1F4AC} Comunidade"],["asf-seguranca","\u{1F6FA} Seguran\u00E7a"],["asf-equipamento","\u{1F3C4}\u200D\u2640\uFE0F Equipamento"],["asf-quiz","\u{1F9E0} Quiz"],["asf-nutricao","\u{1F957} Nutri\u00E7\u00E3o"],["asf-viagens","\u{2708}\uFE0F Viagens"],["asf-historia","\u{1F3C6} Hist\u00F3ria"],["asf-bemestar","\u{1F9D8}\u200D\u2640\uFE0F Bem-estar"],["asf-ranking","\u{1F947} Ranking"],["asf-diario","\u{1F4D3} Di\u00E1rio"],["asf-respira","\u{1FAC1} Respira"],["asf-volume","\u{1F4D0} Volume"],["asf-yoga","\u{1F9D8} Yoga"],["asf-sos","\u{1F198} SOS"],["asf-eco","\u{1F331} Eco"]];
+    var nav=document.createElement('nav');
+    nav.className='asf-sat-nav';
+    nav.setAttribute('aria-label','Ecossistema ASF');
+    nav.style.cssText='background:linear-gradient(135deg,#0ea5e9,#6366f1);padding:.6rem 1rem;display:flex;flex-wrap:wrap;gap:.35rem;justify-content:center;position:sticky;top:0;z-index:10000;';
+    sites.forEach(function(s){
+      var a=document.createElement('a');
+      a.href='https://acarolmourad-commits.github.io/'+s[0]+'/';
+      a.textContent=s[1];
+      a.style.cssText='color:#e0f2fe;text-decoration:none;font-weight:600;font-size:.75rem;padding:.28rem .55rem;border-radius:999px;background:rgba(255,255,255,.12);font-family:inherit;';
+      a.onmouseover=function(){a.style.background='rgba(255,255,255,.35)';};
+      a.onmouseout=function(){a.style.background='rgba(255,255,255,.12)';};
+      nav.appendChild(a);
+    });
+    document.body.insertBefore(nav,document.body.firstChild);
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',injectNav);}else{injectNav();}
+})();
 </script>
 </body>
 </html>
