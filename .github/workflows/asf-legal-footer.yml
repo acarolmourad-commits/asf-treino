@@ -1,0 +1,20 @@
+name: ASF Legal Footer
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/asf-legal-footer.yml']
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: curl -sL https://raw.githubusercontent.com/acarolmourad-commits/asf-app/main/scripts/asf_legal_footer.py -o /tmp/fix.py && python3 /tmp/fix.py
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet || git commit -m "ASF: footer com links legais (Privacidade/Cookies/Termos)"
+          git push
