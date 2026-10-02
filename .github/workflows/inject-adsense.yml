@@ -1,0 +1,28 @@
+name: Inject AdSense code
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/inject-adsense.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  inject:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inject AdSense into index.html head
+        run: |
+          if grep -q "ca-pub-1643806355443576" index.html; then echo "ja presente"; exit 0; fi
+          sed -i 's#</head>#<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1643806355443576" crossorigin="anonymous"></script>\n</head>#i' index.html
+          grep -c "adsbygoogle.js" index.html
+      - name: Commit change
+        run: |
+          git config user.name "ASF Bot"
+          git config user.email "asf.surffeminino@gmail.com"
+          git add index.html
+          git commit -m "feat: add Google AdSense code (ca-pub-1643806355443576) [skip ci]" || echo "nothing to commit"
+          git push
