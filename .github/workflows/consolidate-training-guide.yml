@@ -1,0 +1,62 @@
+name: Consolidate approved 30-day training guide
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/consolidate-training-guide.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: consolidate-training-guide
+  cancel-in-progress: false
+jobs:
+  consolidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Insert guide without altering weekly progress scripts
+        shell: python
+        run: |
+          import pathlib, re
+          path = pathlib.Path('index.html')
+          old = path.read_text()
+          if 'id="plano-30-dias"' in old:
+              print('Guide already consolidated; no change.')
+              raise SystemExit(0)
+          anchor = '<button class="reset" onclick="resetar()">↺ Recomeçar semana</button>'
+          assert old.count(anchor) == 1, 'Unexpected training markup; abort instead of overwriting.'
+          guide = '''<section class="card destaque" id="plano-30-dias" aria-labelledby="plano-30-dias-titulo" style="scroll-margin-top:90px">
+          <span class="badge">📖 GUIA · 30 DIAS</span>
+          <h2 id="plano-30-dias-titulo">💪 Plano de Treino: 30 Dias para Surfar Melhor</h2>
+          <p>Quatro semanas de preparação e dois dias para avaliar sua experiência. Use este roteiro como referência educativa, não como prescrição individual ou promessa de resultado.</p>
+          <p class="muted">Adapte frequência, duração e intensidade ao seu nível, à recuperação e às condições locais. Iniciantes devem priorizar aulas com orientação qualificada; não é necessário cumprir sessões longas. Interrompa a prática se houver dor, tontura ou mal-estar e procure orientação. No mar, não faça treinos de apneia ou sprints sem supervisão adequada.</p>
+          <details open><summary style="font-weight:700;cursor:pointer;padding:10px 0">📅 Semana 1 — Base (dias 1–7)</summary>
+          <ul><li>Dia 1: sessão de surf adaptada ao seu nível + mobilidade suave.</li><li>Dia 2: core e equilíbrio; use apoio estável antes de equipamentos instáveis.</li><li>Dia 3: surf com orientação, observando remada e posicionamento.</li><li>Dia 4: mobilidade de ombros, quadril e tornozelos.</li><li>Dia 5: surf ou preparação de remada em terra, sem sobrecarga.</li><li>Dia 6: caminhada ou atividade aeróbica leve, em ritmo confortável.</li><li>Dia 7: descanso ou recuperação leve, conforme sua necessidade.</li></ul></details>
+          <details><summary style="font-weight:700;cursor:pointer;padding:10px 0">📅 Semana 2 — Força (dias 8–14)</summary>
+          <ul><li>Dia 8: surf adaptado e agachamento com execução controlada, se apropriado ao seu nível.</li><li>Dia 9: força de membros superiores: variações de flexão e remada adequadas, com orientação.</li><li>Dia 10: surf focado em um fundamento; iniciantes trabalham base e direção, não manobras avançadas.</li><li>Dia 11: pernas e core, respeitando recuperação e técnica.</li><li>Dia 12: surf em duração confortável; não aumente a carga só para cumprir o calendário.</li><li>Dia 13: atividade leve ou descanso. Treinos intervalados intensos são opcionais e dependem de avaliação profissional.</li><li>Dia 14: descanso.</li></ul></details>
+          <details><summary style="font-weight:700;cursor:pointer;padding:10px 0">📅 Semana 3 — Controle e potência (dias 15–21)</summary>
+          <ul><li>Dia 15: revisar o pop-up em terra com movimentos controlados.</li><li>Dia 16: força e estabilidade; saltos, burpees e box jumps não são obrigatórios e exigem preparo e orientação.</li><li>Dia 17: surf com um objetivo técnico compatível com seu nível.</li><li>Dia 18: mobilidade e recuperação.</li><li>Dia 19: técnica de remada; iniciantes evitam sprints no mar e priorizam controle e orientação.</li><li>Dia 20: atividade confortável ou prática leve, conforme a recuperação.</li><li>Dia 21: descanso e registro do que funcionou.</li></ul></details>
+          <details><summary style="font-weight:700;cursor:pointer;padding:10px 0">📅 Semana 4 — Integração (dias 22–28)</summary>
+          <ul><li>Dia 22: combinar um fundamento técnico com preparação física leve.</li><li>Dia 23: força adaptada e mobilidade.</li><li>Dia 24: surf com o objetivo escolhido e condições adequadas.</li><li>Dia 25: recuperação e revisão do diário.</li><li>Dia 26: sessão de aplicação; simulação de bateria de 20 minutos apenas para quem já tem preparo e acompanhamento.</li><li>Dia 27: observar a técnica com instrutora ou treinador; vídeos somente com consentimento.</li><li>Dia 28: descanso e avaliação sem comparação com outras pessoas.</li></ul></details>
+          <details><summary style="font-weight:700;cursor:pointer;padding:10px 0">🏁 Dias 29 e 30 — Revisão e próximo ciclo</summary>
+          <ul><li>Dia 29: registrar como você se sentiu, os fundamentos praticados e as dificuldades; não fazer teste máximo de esforço.</li><li>Dia 30: definir um objetivo realista para o próximo ciclo, ajustar carga e descanso com orientação e celebrar a consistência.</li></ul></details>
+          <p class="muted">O checklist semanal acima mantém seu progresso salvo neste navegador e funciona separadamente deste guia. Não precisa concluir tudo nem reiniciar o checklist para usar o plano.</p>
+          <p><a href="https://acarolmourad-commits.github.io/asf-diario/" style="color:var(--primary)">📓 Registrar a experiência no ASF Diário</a> · <a href="https://asf.surf/" style="color:var(--primary)">🏠 Voltar à home ASF</a></p>
+          </section>'''
+          new = old.replace(anchor, anchor + '\n' + guide, 1)
+          assert re.findall(r'<script\b.*?</script>', old, re.S) == re.findall(r'<script\b.*?</script>', new, re.S)
+          assert '<input' not in guide and 'localStorage' not in guide
+          assert new.count('id="plano-30-dias"') == 1
+          path.write_text(new)
+          print('Guide inserted; existing scripts and storage logic preserved.')
+      - name: Commit approved guide only
+        run: |
+          if git diff --quiet -- index.html; then exit 0; fi
+          git config user.name 'ASF Publishing'
+          git config user.email 'asf.surffeminino@gmail.com'
+          git add index.html
+          git commit -m 'content: consolidate 30-day training plan in ASF Treino'
+          git push origin HEAD:main
