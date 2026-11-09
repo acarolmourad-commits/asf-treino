@@ -1,0 +1,43 @@
+name: Standardize ASF design 2026-11-09 (one-shot)
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/standardize-asf-design-20261109.yml']
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add shared ASF menu and design layer
+        run: |
+          python3 - <<'PY'
+          import pathlib, sys
+          p = pathlib.Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          if '</head>' not in s or '</body>' not in s:
+              print('head/body anchors missing'); sys.exit(1)
+          if 'asf-site-redesign.css' not in s:
+              s = s.replace('</head>', '  <link rel="stylesheet" href="https://acarolmourad-commits.github.io/asf-app/asf-site-redesign.css">\n</head>', 1)
+          add = ''
+          if 'asf-network.js' not in s:
+              add += '  <script src="https://acarolmourad-commits.github.io/asf-app/asf-network.js" defer></script>\n'
+          if 'asf-redesign.js' not in s:
+              add += '  <script src="https://acarolmourad-commits.github.io/asf-app/asf-redesign.js" defer></script>\n'
+          if add:
+              s = s.replace('</body>', add + '</body>', 1)
+          for kw in ['asf-site-redesign.css', 'asf-network.js', 'asf-redesign.js']:
+              if s.count(kw) != 1:
+                  print('validation failed', kw, s.count(kw)); sys.exit(1)
+          p.write_text(s, encoding='utf-8')
+          print('ASF standard design applied')
+          PY
+      - name: Commit and push if changed
+        run: |
+          if git diff --quiet; then echo 'No changes'; exit 0; fi
+          git config user.name 'ASF Bot'
+          git config user.email 'bot@asf-app.com'
+          git add index.html
+          git commit -m 'style: padroniza menu e design ASF (rede compartilhada)'
+          git push
