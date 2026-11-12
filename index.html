@@ -22,11 +22,17 @@ button,input,summary{font:inherit}
 :focus-visible{outline:3px solid #9b3a6e;outline-offset:5px}
 .skip-link{position:fixed;top:12px;left:12px;transform:translateY(-160%);background:#fff;color:var(--dark);padding:12px 18px;border-radius:8px;z-index:10001}
 .skip-link:focus{transform:none}
-.asf-sat-nav{position:sticky;top:0;z-index:10000;background:#fff;border-bottom:1px solid var(--line);padding:10px max(20px,calc((100% - 1120px)/2));display:flex;gap:8px;overflow-x:auto;scrollbar-width:thin}
+.asf-sat-nav{position:sticky;top:0;z-index:10000;background:#fff;border-bottom:1px solid var(--line);padding:10px max(20px,calc((100% - 1120px)/2));display:flex;align-items:center;flex-wrap:wrap;gap:8px}
 .asf-sat-nav a{flex:none;color:#344c5f;text-decoration:none;font-size:13px;font-weight:600;padding:8px 12px;border-radius:999px;white-space:nowrap;min-height:40px}
 .asf-sat-nav a:hover{background:#ecf4f7}
 .asf-sat-nav a[aria-current=page]{color:#fff;background:var(--primary)}
 .asf-sat-nav a:focus-visible{outline-offset:-3px}
+.asf-sat-nav details{position:relative;margin-left:auto}
+.asf-sat-nav summary{cursor:pointer;padding:10px 12px;min-height:44px;font-weight:600;font-size:14px;border-radius:999px;background:#ecf4f7}
+.asf-sat-nav summary:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
+.asf-sat-menu{position:absolute;right:0;top:100%;margin-top:8px;width:min(360px,calc(100vw - 28px));max-height:60vh;overflow:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));background:#fff;border:1px solid var(--line);box-shadow:0 12px 32px #0e243926;border-radius:16px;padding:12px}
+.asf-sat-menu a{white-space:normal;border-radius:8px}
+@media(max-width:380px){.asf-sat-nav{gap:2px}.asf-sat-nav>a{padding:8px}.asf-sat-nav summary{padding:10px 8px}}
 .hero{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(120deg,#10384d 5%,#075c74 65%,#65457a);color:#fff;padding:70px 24px 62px}
 .hero::after{content:'';position:absolute;width:640px;height:640px;border:1px solid #ffffff1f;border-radius:46%;right:-240px;top:-210px;transform:rotate(-20deg);box-shadow:0 0 0 55px #ffffff05,0 0 0 110px #ffffff05;z-index:-1}
 .hero-inner{max-width:1060px;margin:0 auto}
@@ -503,13 +509,24 @@ atualizar();
     var nav=document.createElement('nav');
     nav.className='asf-sat-nav';
     nav.setAttribute('aria-label','Ecossistema ASF');
+    var more=document.createElement('details');
+    var summary=document.createElement('summary');
+    summary.textContent='Mais apps';
+    more.appendChild(summary);
+    var menu=document.createElement('div');
+    menu.className='asf-sat-menu';
+    more.appendChild(menu);
     sites.forEach(function(s){
       var a=document.createElement('a');
-      a.href='https://acarolmourad-commits.github.io/'+s[0]+'/';
+      a.href=s[0]==='asf-app'?'https://asf.surf/':s[0]==='asf-treino'?'https://treino.asf.surf/':'https://acarolmourad-commits.github.io/'+s[0]+'/';
       a.textContent=s[1];
       if (s[0] === 'asf-treino') a.setAttribute('aria-current', 'page');
-      nav.appendChild(a);
+      (['asf-app','asf-treino','asf-previsao'].includes(s[0])?nav:menu).appendChild(a);
     });
+    nav.appendChild(more);
+    more.addEventListener('keydown',function(e){if(e.key==='Escape'){more.open=false;summary.focus();}});
+    document.addEventListener('click',function(e){if(!more.contains(e.target))more.open=false;});
+    menu.addEventListener('click',function(e){if(e.target.closest('a'))more.open=false;});
     document.querySelector('.skip-link').insertAdjacentElement('afterend', nav);
   }
   if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',injectNav);}else{injectNav();}

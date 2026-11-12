@@ -37,6 +37,17 @@ async function open({ raw, now='2026-01-01T12:00:00Z', blocked=false, quota=fals
   assert.equal(writes(),0);
   assert.equal(doc.querySelector('.asf-sat-nav a[aria-current=page]').textContent,'🏋️ Treino');
   assert.equal(doc.querySelectorAll('.asf-sat-nav a').length,20);
+  assert.equal(doc.querySelectorAll('.asf-sat-nav > a').length,3);
+  assert.equal(doc.querySelectorAll('.asf-sat-menu a').length,17);
+  assert.equal(doc.querySelector('.asf-sat-nav > a').href,'https://asf.surf/');
+  const menu=doc.querySelector('.asf-sat-nav details');
+  menu.open=true;
+  menu.dispatchEvent(new window.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));
+  assert.equal(menu.open,false);
+  assert.equal(doc.activeElement,menu.querySelector('summary'));
+  menu.open=true;
+  doc.body.dispatchEvent(new window.MouseEvent('click',{bubbles:true}));
+  assert.equal(menu.open,false);
   assert.equal(doc.body.firstElementChild.className,'skip-link');
   assert.equal(doc.querySelectorAll('h1').length,1);
   assert.equal(doc.querySelectorAll('footer').length,1);
